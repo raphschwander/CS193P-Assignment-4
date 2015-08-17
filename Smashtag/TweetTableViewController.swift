@@ -32,11 +32,16 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    private struct Storyboard {
+        static let TableViewReusableCellIdentifier = "Tweet"
+        static let SegueIdentifier = "Show Mentions"
+    }
+    
+    
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -73,6 +78,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBAction func refresh(sender: UIRefreshControl?) {
         if searchText != nil {
+            title = searchText
             if let request = nextRequestToAttempt {
                 request.fetchTweets { (tweets) -> Void in
                     dispatch_async(dispatch_get_main_queue()) {
@@ -113,12 +119,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets[section].count
     }
-    
-    
-    private struct Storyboard {
-        static let TableViewReusableCellIdentifier = "Tweet"
-    }
-
   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -166,14 +166,23 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let tmvc = segue.destinationViewController as? TweetMentionsTableViewController {
+            if let identifier = segue.identifier {
+                switch identifier {
+                case Storyboard.SegueIdentifier:
+                    let cell = sender as! TweetTableViewCell
+                    if let indexPath = tableView.indexPathForCell(cell) {
+                        tmvc.tweet = self.tweets[indexPath.section][indexPath.row]
+                    }
+                default: break
+                }
+            }
+        }
+    }
 }

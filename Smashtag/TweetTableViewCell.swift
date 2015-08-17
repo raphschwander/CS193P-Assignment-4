@@ -71,14 +71,13 @@ class TweetTableViewCell: UITableViewCell {
     
     // MARK: REQUIRED TASK 1
     
-    private struct Mentions {
-        static let HashTagColor = UIColor.orangeColor()
-        static let UrlColor = UIColor.blueColor()
-        static let UserMentionColor = UIColor.redColor()
-    }
+    var hashTagColor = UIColor.orangeColor()
+    var urlColor = UIColor.blueColor()
+    var userMentionColor = UIColor.redColor()
     
     // Loop through each tweet and assign a color to each mention appearing in text
     private func setAndFormatBodyText (tweet: Tweet) {
+        
         var text = tweet.text
         for _ in tweet.media {
             text += " 📷"
@@ -88,25 +87,24 @@ class TweetTableViewCell: UITableViewCell {
         
         if !tweet.hashtags.isEmpty {
             for hashtag in tweet.hashtags {
-                attributedString.addAttribute(NSForegroundColorAttributeName, value: Mentions.HashTagColor, range: hashtag.nsrange)
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: hashTagColor, range: hashtag.nsrange)
             }
         }
         
         if !tweet.urls.isEmpty {
             for url in tweet.urls {
-                attributedString.addAttribute(NSForegroundColorAttributeName, value: Mentions.UrlColor, range: url.nsrange)
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: urlColor, range: url.nsrange)
             }
         }
         
         if !tweet.userMentions.isEmpty {
             for userMention in tweet.userMentions {
-                attributedString.addAttribute(NSForegroundColorAttributeName, value: Mentions.UserMentionColor, range: userMention.nsrange)
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: userMentionColor, range: userMention.nsrange)
             }
         }
         
         bodyTextLabel?.attributedText = attributedString
     }
-    
 }
 
 
