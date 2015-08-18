@@ -70,6 +70,8 @@ class TweetMentionsTableViewController: UITableViewController {
     private struct Storyboard {
         static let TableViewReusableImageCellIdentifier = "ImageMention"
         static let TableViewReusableTextCellIdentifier = "TextMention"
+        static let UnwindToMainMenuIdentifier = "Unwind To Main Menu"
+        static let WebviewSegueIdentifier = "Show Webview"
     }
 
     override func viewDidLoad() {
@@ -124,6 +126,27 @@ class TweetMentionsTableViewController: UITableViewController {
         }
         
     }
+    
+    //Perfom appriopriate Segue depending of the type of cell that was selected
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let mention = mentions[indexPath.section].data[indexPath.row]
+        
+        switch mention {
+        case .Keyword(let keyword):
+            let mentionTitle = mentions[indexPath.section].title
+            if mentionTitle == Constants.UrlMentionTitle {
+                //for url, segue to a new MVC
+                
+            } else {
+                // for Hashtags and Users, unwind to main menu
+                performSegueWithIdentifier(Storyboard.UnwindToMainMenuIdentifier, sender: tableView.cellForRowAtIndexPath(indexPath))
+            }
+        default:
+            break
+        }
+        
+    }
 
 
     /*
@@ -161,16 +184,24 @@ class TweetMentionsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.UnwindToMainMenuIdentifier:
+                let cell = sender as! UITableViewCell
+                if let indexPath = tableView.indexPathForCell(cell) {
+                    if let tvc = segue.destinationViewController as? TweetTableViewController {
+                        // set the new search text
+                        tvc.searchText = cell.textLabel?.text
+                    }
+                }
+            default: break
+            }
+        }
     }
-    */
-    
 }
 
 

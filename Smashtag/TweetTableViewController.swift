@@ -22,6 +22,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    //Set the unwind action
+    @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+    }
+    
     var searchText: String? {
         didSet {
             lastSuccessfulRequest = nil

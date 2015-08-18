@@ -224,8 +224,12 @@
                             <outlet property="delegate" destination="21m-8G-iki" id="byq-Kl-G3A"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="NwE-3n-c4U" kind="unwind" identifier="Unwind To Main Menu" unwindAction="unwindToMainMenu:" id="jM0-AP-obm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1n-qj-jTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="NwE-3n-c4U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="842" y="569"/>
         </scene>
