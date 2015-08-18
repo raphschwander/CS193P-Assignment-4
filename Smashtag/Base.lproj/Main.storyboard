@@ -226,12 +226,70 @@
                     </tableView>
                     <connections>
                         <segue destination="NwE-3n-c4U" kind="unwind" identifier="Unwind To Main Menu" unwindAction="unwindToMainMenu:" id="jM0-AP-obm"/>
+                        <segue destination="kGK-cN-IbG" kind="show" identifier="Show WebView" id="kNW-CN-6cD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1n-qj-jTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NwE-3n-c4U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="842" y="569"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="0pm-Iz-pfB">
+            <objects>
+                <viewController id="kGK-cN-IbG" customClass="WebViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eAD-dW-llD"/>
+                        <viewControllerLayoutGuide type="bottom" id="jaQ-Fw-3MM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cfr-ql-hkS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q1J-Ea-gh3">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="◀︎" id="Ngp-Im-hUa">
+                                        <connections>
+                                            <action selector="goBack:" destination="kGK-cN-IbG" id="gpb-HV-h6E"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="▶︎" id="uPi-ng-Zap">
+                                        <connections>
+                                            <action selector="goForward:" destination="kGK-cN-IbG" id="WxR-ek-ILP"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="JFg-Cu-qmc"/>
+                                    <barButtonItem systemItem="refresh" id="1UQ-ih-c4Y">
+                                        <connections>
+                                            <action selector="refresh:" destination="kGK-cN-IbG" id="MLZ-BR-oau"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fa-Rh-xco">
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="q1J-Ea-gh3" secondAttribute="trailing" id="6Xk-Ad-e4R"/>
+                            <constraint firstItem="q1J-Ea-gh3" firstAttribute="top" secondItem="4fa-Rh-xco" secondAttribute="bottom" id="JaV-BT-f2Y"/>
+                            <constraint firstItem="q1J-Ea-gh3" firstAttribute="leading" secondItem="Cfr-ql-hkS" secondAttribute="leading" id="LQ7-tO-auf"/>
+                            <constraint firstItem="4fa-Rh-xco" firstAttribute="leading" secondItem="Cfr-ql-hkS" secondAttribute="leading" id="jt2-dx-ebJ"/>
+                            <constraint firstItem="jaQ-Fw-3MM" firstAttribute="top" secondItem="q1J-Ea-gh3" secondAttribute="bottom" id="piC-DW-4dV"/>
+                            <constraint firstAttribute="trailing" secondItem="4fa-Rh-xco" secondAttribute="trailing" id="rax-Oz-Yj7"/>
+                            <constraint firstItem="4fa-Rh-xco" firstAttribute="top" secondItem="eAD-dW-llD" secondAttribute="bottom" id="w2X-Fc-doQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="4fa-Rh-xco" id="OSD-pW-SaY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yhv-Yt-sff" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1587" y="569"/>
         </scene>
     </scenes>
 </document>

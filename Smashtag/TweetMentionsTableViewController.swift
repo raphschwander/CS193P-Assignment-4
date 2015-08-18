@@ -71,7 +71,7 @@ class TweetMentionsTableViewController: UITableViewController {
         static let TableViewReusableImageCellIdentifier = "ImageMention"
         static let TableViewReusableTextCellIdentifier = "TextMention"
         static let UnwindToMainMenuIdentifier = "Unwind To Main Menu"
-        static let WebviewSegueIdentifier = "Show Webview"
+        static let WebviewSegueIdentifier = "Show WebView"
     }
 
     override func viewDidLoad() {
@@ -137,6 +137,7 @@ class TweetMentionsTableViewController: UITableViewController {
             let mentionTitle = mentions[indexPath.section].title
             if mentionTitle == Constants.UrlMentionTitle {
                 //for url, segue to a new MVC
+                performSegueWithIdentifier(Storyboard.WebviewSegueIdentifier, sender: tableView.cellForRowAtIndexPath(indexPath))
                 
             } else {
                 // for Hashtags and Users, unwind to main menu
@@ -196,6 +197,15 @@ class TweetMentionsTableViewController: UITableViewController {
                     if let tvc = segue.destinationViewController as? TweetTableViewController {
                         // set the new search text
                         tvc.searchText = cell.textLabel?.text
+                    }
+                }
+            case Storyboard.WebviewSegueIdentifier:
+                let cell = sender as! UITableViewCell
+                if let indexPath = tableView.indexPathForCell(cell) {
+                    if let wvc = segue.destinationViewController as? WebViewController {
+                        // set the url
+                        let urlString = cell.textLabel?.text
+                        wvc.url = NSURL(string: urlString!)
                     }
                 }
             default: break

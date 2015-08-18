@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F6DC77A41B8221FB00BF1F71 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DC77A31B8221FB00BF1F71 /* ImageTableViewCell.swift */; };
+		F6E735CF1B837F7D0054C409 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E735CE1B837F7D0054C409 /* WebViewController.swift */; };
 		F6E7B7051B80FE7400F5A6FB /* TweetMentionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E7B7041B80FE7400F5A6FB /* TweetMentionsTableViewController.swift */; };
 		F6EC76C11B7DAE33004D4127 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EC76C01B7DAE33004D4127 /* AppDelegate.swift */; };
 		F6EC76C61B7DAE33004D4127 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6EC76C41B7DAE33004D4127 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		F6DC77A31B8221FB00BF1F71 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageTableViewCell.swift; path = ../ImageTableViewCell.swift; sourceTree = "<group>"; };
+		F6E735CE1B837F7D0054C409 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F6E7B7041B80FE7400F5A6FB /* TweetMentionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetMentionsTableViewController.swift; sourceTree = "<group>"; };
 		F6EC76BB1B7DAE33004D4127 /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6EC76BF1B7DAE33004D4127 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				F6EC76EB1B7DCBA9004D4127 /* TweetTableViewCell.swift */,
 				F6E7B7041B80FE7400F5A6FB /* TweetMentionsTableViewController.swift */,
 				F6DC77A31B8221FB00BF1F71 /* ImageTableViewCell.swift */,
+				F6E735CE1B837F7D0054C409 /* WebViewController.swift */,
 				F6EC76BE1B7DAE33004D4127 /* Supporting Files */,
 			);
 			path = Smashtag;
@@ -245,6 +248,7 @@
 				F6EC76C11B7DAE33004D4127 /* AppDelegate.swift in Sources */,
 				F6EC76E91B7DAF42004D4127 /* TwitterRequest.swift in Sources */,
 				F6EC76EA1B7DAF42004D4127 /* User.swift in Sources */,
+				F6E735CF1B837F7D0054C409 /* WebViewController.swift in Sources */,
 				F6DC77A41B8221FB00BF1F71 /* ImageTableViewCell.swift in Sources */,
 				F6EC76E11B7DAED3004D4127 /* TweetTableViewController.swift in Sources */,
 				F6EC76E71B7DAF42004D4127 /* MediaItem.swift in Sources */,
