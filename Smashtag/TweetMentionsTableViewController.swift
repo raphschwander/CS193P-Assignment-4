@@ -72,6 +72,7 @@ class TweetMentionsTableViewController: UITableViewController {
         static let TableViewReusableTextCellIdentifier = "TextMention"
         static let UnwindToMainMenuIdentifier = "Unwind To Main Menu"
         static let WebviewSegueIdentifier = "Show WebView"
+        static let ScrollViewSegueIdentifier = "Show ScrollableImage"
     }
 
     override func viewDidLoad() {
@@ -143,6 +144,9 @@ class TweetMentionsTableViewController: UITableViewController {
                 // for Hashtags and Users, unwind to main menu
                 performSegueWithIdentifier(Storyboard.UnwindToMainMenuIdentifier, sender: tableView.cellForRowAtIndexPath(indexPath))
             }
+        case .Image(_, _):
+            //for image, segue to a new MVC
+            performSegueWithIdentifier(Storyboard.ScrollViewSegueIdentifier, sender: tableView.cellForRowAtIndexPath(indexPath))
         default:
             break
         }
@@ -206,6 +210,19 @@ class TweetMentionsTableViewController: UITableViewController {
                         // set the url
                         let urlString = cell.textLabel?.text
                         wvc.url = NSURL(string: urlString!)
+                    }
+                }
+            case Storyboard.ScrollViewSegueIdentifier:
+                let cell = sender as! ImageTableViewCell
+                if let indexPath = tableView.indexPathForCell(cell) {
+                    if let svc = segue.destinationViewController as? ScrollViewController {
+                        let mention = mentions[indexPath.section].data[indexPath.row]
+                        switch mention {
+                        case .Image(let nsurl, _):
+                            // set the nsurl
+                            svc.imageUrl = nsurl
+                        default: break
+                        }
                     }
                 }
             default: break

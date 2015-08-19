@@ -227,6 +227,7 @@
                     <connections>
                         <segue destination="NwE-3n-c4U" kind="unwind" identifier="Unwind To Main Menu" unwindAction="unwindToMainMenu:" id="jM0-AP-obm"/>
                         <segue destination="kGK-cN-IbG" kind="show" identifier="Show WebView" id="kNW-CN-6cD"/>
+                        <segue destination="EL5-5Q-Xhb" kind="show" identifier="Show ScrollableImage" id="yfY-2o-vSv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1n-qj-jTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -290,6 +291,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yhv-Yt-sff" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1587" y="569"/>
+        </scene>
+        <!--Scroll View Controller-->
+        <scene sceneID="Tmk-QE-uWi">
+            <objects>
+                <viewController id="EL5-5Q-Xhb" customClass="ScrollViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CYh-MY-rLY"/>
+                        <viewControllerLayoutGuide type="bottom" id="08P-52-8RA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xRm-9M-xVu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdI-IP-MZA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qdI-IP-MZA" firstAttribute="top" secondItem="xRm-9M-xVu" secondAttribute="top" id="BAk-3h-UR8"/>
+                            <constraint firstAttribute="trailing" secondItem="qdI-IP-MZA" secondAttribute="trailing" id="Ms9-Rr-Ja2"/>
+                            <constraint firstItem="qdI-IP-MZA" firstAttribute="leading" secondItem="xRm-9M-xVu" secondAttribute="leading" id="Tn3-hn-LP7"/>
+                            <constraint firstItem="08P-52-8RA" firstAttribute="top" secondItem="qdI-IP-MZA" secondAttribute="bottom" id="ixP-0i-B98"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="qdI-IP-MZA" id="ehi-Ug-wAL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fFa-Qo-Zyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1587" y="1265"/>
         </scene>
     </scenes>
 </document>
