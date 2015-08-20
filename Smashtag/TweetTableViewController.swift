@@ -12,6 +12,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     var tweets = [[Tweet]]()
     
+    private let userDefaults = UserDefaults()
+    
+    // Keep track of the searches perfomed by the user by persisting the search terms
+    private var searchTerms: [String] {
+        get { return userDefaults.fetchSearchTerms() }
+        set { userDefaults.storeSearchTerms(newValue) }
+    }
+    
     @IBOutlet weak var refreshIndicator: UIRefreshControl!
     
 
@@ -33,6 +41,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             tweets.removeAll()
             tableView.reloadData()
             fetchTweets()
+            
+            if let searchText = searchText  {
+                searchTerms.insert(searchText, atIndex: 0)
+            }
         }
     }
     
@@ -40,7 +52,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         static let TableViewReusableCellIdentifier = "Tweet"
         static let SegueIdentifier = "Show Mentions"
     }
-    
     
     //MARK: - Lifecycle
 
