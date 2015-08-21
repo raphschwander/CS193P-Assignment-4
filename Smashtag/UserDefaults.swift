@@ -38,4 +38,11 @@ class UserDefaults {
     func fetchSearchTerms() -> [String] {
         return userDefaults.objectForKey(Key.RecentSearchTerms) as? [String] ?? []
     }
+    
+    func deleteSearchTerm(removeAtIndexPath indexPath: NSIndexPath) {
+        if var searchTerms = userDefaults.objectForKey(Key.RecentSearchTerms) as? [String] {
+            searchTerms.removeAtIndex(indexPath.row)
+            storeSearchTerms(searchTerms)
+        }
+    }
 }
