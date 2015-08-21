@@ -69,13 +69,12 @@ class RecentSearchTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            userDefaults.deleteSearchTerm(indexPath)
+            userDefaults.deleteSearchTerm(removeAtIndexPath: indexPath)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
 
     /*
     // Override to support rearranging the table view.

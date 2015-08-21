@@ -30,12 +30,19 @@ class TweetMentionsTableViewController: UITableViewController {
                     mentions.append(urlMentionArray)
                 }
             }
-            if let userMention = tweet?.userMentions {
-                if userMention.count > 0 {
-                    let userMentionArray = Mentions(title: Constants.UserMentionTitle, data: userMention.map {(MentionItem.Keyword($0.keyword))})
-                    mentions.append(userMentionArray)
+            
+            // Create an array with the user who posted the tweet and users mentioned in the tweet
+            if let userScreenName = tweet?.user.screenName {
+                var userArray = Mentions(title: Constants.UserMentionTitle, data: [MentionItem.Keyword("@\(userScreenName)")])
+                if let userMention = tweet?.userMentions {
+                    if userMention.count > 0 {
+                        var userMentionArray = userMention.map {(MentionItem.Keyword($0.keyword))}
+                        userArray.data.extend(userMentionArray)
+                    }
                 }
+                mentions.append(userArray)
             }
+            
             if let hashTagMention = tweet?.hashtags {
                 if hashTagMention.count > 0 {
                     let hashTagArray = Mentions(title: Constants.HashtagMentionTitle, data: hashTagMention.map {(MentionItem.Keyword($0.keyword))})
