@@ -37,13 +37,10 @@ class RecentSearchTableViewController: UITableViewController {
 
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return recentSearches.count
     }
 
@@ -71,9 +68,7 @@ class RecentSearchTableViewController: UITableViewController {
             // Delete the row from the data source
             userDefaults.deleteSearchTerm(removeAtIndexPath: indexPath)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
 
     /*

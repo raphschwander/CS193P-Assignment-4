@@ -31,7 +31,7 @@ class TweetMentionsTableViewController: UITableViewController {
                 }
             }
             
-            // Create an array with the user who posted the tweet and users mentioned in the tweet
+            // EXTRA TASK 1 : Create an array with the user who posted the tweet and users mentioned in the tweet
             if let userScreenName = tweet?.user.screenName {
                 var userArray = Mentions(title: Constants.UserMentionTitle, data: [MentionItem.Keyword("@\(userScreenName)")])
                 if let userMention = tweet?.userMentions {
@@ -206,8 +206,17 @@ class TweetMentionsTableViewController: UITableViewController {
                 let cell = sender as! UITableViewCell
                 if let indexPath = tableView.indexPathForCell(cell) {
                     if let tvc = segue.destinationViewController as? TweetTableViewController {
-                        // set the new search text
-                        tvc.searchText = cell.textLabel?.text
+                        let mentionTitle = mentions[indexPath.section].title
+                        
+                        // Extra Task 2 : Set the search text as to search not only for the Tweets that mention that user, but also for the tweets posted by that user
+                        if mentionTitle == Constants.UserMentionTitle {
+                            if let cellText = cell.textLabel?.text {
+                                tvc.searchText = "\(cellText) OR from : \(cellText.substringFromIndex(advance(cellText.startIndex, 1)))"
+                            }
+                        } else {
+                            // set the new search text
+                            tvc.searchText = cell.textLabel?.text
+                        }
                     }
                 }
             case Storyboard.WebviewSegueIdentifier:

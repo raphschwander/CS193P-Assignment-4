@@ -20,7 +20,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbz-dV-wLa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-525" y="555"/>
+            <point key="canvasLocation" x="-545" y="286"/>
         </scene>
         <!--Recent Search Table View Controller-->
         <scene sceneID="US7-Rj-yZa">
@@ -50,7 +50,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUH-I5-3PT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="250" y="1351"/>
+            <point key="canvasLocation" x="1062" y="1351"/>
         </scene>
         <!--Tweets-->
         <scene sceneID="mVs-1l-oQs">
@@ -171,11 +171,12 @@
                     <connections>
                         <segue destination="6KT-S0-NKG" kind="relationship" relationship="viewControllers" id="YlH-qh-1Ph"/>
                         <segue destination="fru-79-qGk" kind="relationship" relationship="viewControllers" id="Cnt-1F-DKe"/>
+                        <segue destination="I6L-KV-8cr" kind="relationship" relationship="viewControllers" id="ffN-p0-lUl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3dg-TW-wtO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1279" y="933"/>
+            <point key="canvasLocation" x="-1404" y="933"/>
         </scene>
         <!--Tweet Mentions Table View Controller-->
         <scene sceneID="liX-uf-5bk">
@@ -299,7 +300,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q1J-Ea-gh3">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="507" width="600" height="44"/>
                                 <items>
                                     <barButtonItem title="◀︎" id="Ngp-Im-hUa">
                                         <connections>
@@ -320,7 +321,7 @@
                                 </items>
                             </toolbar>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fa-Rh-xco">
-                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="443"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
@@ -398,9 +399,66 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZ9-Zd-AFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-525" y="1351"/>
+            <point key="canvasLocation" x="-545" y="933"/>
+        </scene>
+        <!--Tweet Collection View Controller-->
+        <scene sceneID="ZsB-qQ-ATL">
+            <objects>
+                <collectionViewController id="uND-Nl-8j5" customClass="TweetCollectionViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="R8s-V3-FPn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J6t-RJ-Tpw">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="BEm-cG-D81">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="uND-Nl-8j5" id="tG9-1v-odK"/>
+                            <outlet property="delegate" destination="uND-Nl-8j5" id="R3X-8R-U94"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="Tc1-7V-MhB"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="enz-bT-uX1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="250" y="1669"/>
+        </scene>
+        <!--Images-->
+        <scene sceneID="qa4-LV-LW3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I6L-KV-8cr" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Images" image="Collection" id="3mS-aF-E2x"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sZN-gj-ZWd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uND-Nl-8j5" kind="relationship" relationship="rootViewController" id="9R5-Kx-qDB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aes-6h-beB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-545" y="1669"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Collection" width="30" height="30"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="uJU-ch-MyK"/>
     </inferredMetricsTieBreakers>

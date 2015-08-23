@@ -18,7 +18,7 @@ class UserDefaults {
     }
     
     private struct Constant {
-        static let MaxNumberOfSearchToKeepTrackOf = 3
+        static let MaxNumberOfSearchToKeepTrackOf = 100
     }
     
     func storeSearchTerms(recentSearchTerms:[String]) {
