@@ -21,8 +21,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBOutlet weak var refreshIndicator: UIRefreshControl!
-    
-
     @IBOutlet weak var twitterSearchField: UITextField! {
         didSet {
             twitterSearchField.delegate = self
@@ -32,6 +30,16 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     //Set the unwind action
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+    }
+    
+    var tweetToShow: Tweet? {
+        didSet {
+            if tweetToShow != nil  {
+                tweets.removeAll()
+                tweets.append([tweetToShow!])
+                tableView.reloadData()
+            }
+        }
     }
     
     var searchText: String? {
@@ -62,12 +70,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         fetchTweets()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     var lastSuccessfulRequest: TwitterRequest?
@@ -112,7 +114,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    
     //MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -124,7 +125,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-
 
     // MARK: - UITableViewDataSource
 
@@ -142,68 +142,40 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         let tweet = tweets[indexPath.section][indexPath.row]
         cell.tweet = tweet
         
-
         return cell
     }
 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-
     // MARK: - Navigation
-
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-            if let identifier = segue.identifier {
-                switch identifier {
-                case Storyboard.SegueIdentifier:
-                    if let tmvc = segue.destinationViewController as? TweetMentionsTableViewController {
-                        let cell = sender as! TweetTableViewCell
-                        if let indexPath = tableView.indexPathForCell(cell) {
-                            tmvc.tweet = self.tweets[indexPath.section][indexPath.row]
-                        }
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.SegueIdentifier:
+                if let tmvc = segue.destinationViewController as? TweetMentionsTableViewController {
+                    let cell = sender as! TweetTableViewCell
+                    if let indexPath = tableView.indexPathForCell(cell) {
+                        tmvc.tweet = self.tweets[indexPath.section][indexPath.row]
                     }
-                case Storyboard.CollectionSegueIdentifier:
-                    if let tcvc = segue.destinationViewController as? TweetCollectionViewController {
-                        tcvc.tweets = tweets
-                    }
-                    
-                default: break
                 }
+            case Storyboard.CollectionSegueIdentifier:
+                if let tcvc = segue.destinationViewController as? TweetCollectionViewController {
+                    tcvc.tweets = tweets
+                    tcvc.title = title
+                }
+                
+            default: break
             }
+        }
+    }
+    
+    // Unwind to the first root controller
+    override func canPerformUnwindSegueAction(action: Selector, fromViewController: UIViewController, withSender sender: AnyObject) -> Bool {
+        if let first = navigationController?.viewControllers.first as? TweetTableViewController {
+            if first == self {
+                return true
+            }
+        }
+        return false
     }
 }

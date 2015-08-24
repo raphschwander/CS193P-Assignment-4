@@ -280,7 +280,13 @@
                             <outlet property="delegate" destination="21m-8G-iki" id="byq-Kl-G3A"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="o8m-7A-HWT"/>
+                    <navigationItem key="navigationItem" id="o8m-7A-HWT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="Zj7-tL-7ai">
+                            <connections>
+                                <segue destination="NwE-3n-c4U" kind="unwind" unwindAction="unwindToMainMenu:" id="BoT-B0-On5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="NwE-3n-c4U" kind="unwind" identifier="Unwind To Main Menu" unwindAction="unwindToMainMenu:" id="jM0-AP-obm"/>
                         <segue destination="kGK-cN-IbG" kind="show" identifier="Show WebView" id="kNW-CN-6cD"/>
@@ -290,7 +296,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1n-qj-jTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NwE-3n-c4U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1134" y="555"/>
+            <point key="canvasLocation" x="1125" y="555"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="0pm-Iz-pfB">
@@ -326,7 +332,7 @@
                                 </items>
                             </toolbar>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fa-Rh-xco">
-                                <rect key="frame" x="0.0" y="64" width="600" height="443"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="435"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
@@ -338,14 +344,16 @@
                             <constraint firstItem="4fa-Rh-xco" firstAttribute="leading" secondItem="Cfr-ql-hkS" secondAttribute="leading" id="jt2-dx-ebJ"/>
                             <constraint firstItem="jaQ-Fw-3MM" firstAttribute="top" secondItem="q1J-Ea-gh3" secondAttribute="bottom" id="piC-DW-4dV"/>
                             <constraint firstAttribute="trailing" secondItem="4fa-Rh-xco" secondAttribute="trailing" id="rax-Oz-Yj7"/>
-                            <constraint firstItem="4fa-Rh-xco" firstAttribute="top" secondItem="eAD-dW-llD" secondAttribute="bottom" id="w2X-Fc-doQ"/>
+                            <constraint firstItem="4fa-Rh-xco" firstAttribute="top" secondItem="eAD-dW-llD" secondAttribute="bottom" constant="8" symbolic="YES" id="w2X-Fc-doQ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="webView" destination="4fa-Rh-xco" id="OSD-pW-SaY"/>
+                        <segue destination="wFh-qI-i9M" kind="unwind" identifier="Unwind To Main Menu" unwindAction="unwindToMainMenu:" id="Zik-tp-BYC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yhv-Yt-sff" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="wFh-qI-i9M" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2397" y="251"/>
         </scene>
@@ -379,11 +387,15 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="scrollView" destination="qdI-IP-MZA" id="ehi-Ug-wAL"/>
+                        <segue destination="QZ0-Mz-RID" kind="unwind" identifier="Unwind To Main Menu" unwindAction="unwindToMainMenu:" id="UK0-1m-xpH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fFa-Qo-Zyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QZ0-Mz-RID" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2397" y="960"/>
         </scene>
@@ -427,7 +439,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="107" height="111"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HUx-dm-ZsX">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HUx-dm-ZsX">
                                             <rect key="frame" x="0.0" y="0.0" width="107" height="111"/>
                                         </imageView>
                                     </subviews>
@@ -441,6 +453,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="tweetImage" destination="HUx-dm-ZsX" id="OWP-ae-8jc"/>
+                                    <segue destination="A78-R8-bLB" kind="show" identifier="Show Tweet" id="pIs-8D-Mzx"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -449,11 +462,21 @@
                             <outlet property="delegate" destination="uND-Nl-8j5" id="R3X-8R-U94"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="Tc1-7V-MhB"/>
+                    <navigationItem key="navigationItem" id="Tc1-7V-MhB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="TXt-R8-uvo">
+                            <connections>
+                                <segue destination="Aps-zK-eEI" kind="unwind" unwindAction="unwindToMainMenu:" id="3qT-Aw-1I4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tweetCollectionView" destination="R8s-V3-FPn" id="uGt-LK-4tY"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enz-bT-uX1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Aps-zK-eEI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1134" y="-130"/>
+            <point key="canvasLocation" x="1125" y="-215"/>
         </scene>
     </scenes>
     <resources>

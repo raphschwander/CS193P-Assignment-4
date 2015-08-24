@@ -21,13 +21,6 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bodyTextLabel: UILabel!
     @IBOutlet weak var tweetImageView: UIImageView!
-
-
-//    override func setSelected(selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
     
     private func updateUI() {
         

@@ -9,7 +9,7 @@
 import UIKit
 
 
-class TweetCollectionViewController: UICollectionViewController, ImageCollectionViewDelegate {
+class TweetCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ImageCollectionViewDelegate {
     
     var tweets: [[Tweet]] = [[]] {
         didSet {
@@ -27,33 +27,95 @@ class TweetCollectionViewController: UICollectionViewController, ImageCollection
         }
     }
     
-
     private let cache = NSCache()
     
     private var tweetsWithImages: [[Tweet]] = [[]]
     
+    @IBOutlet var tweetCollectionView: UICollectionView! {
+        didSet{
+            tweetCollectionView.delegate = self
+            tweetCollectionView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Gestures.PinchAction))
+        }
+    }
+    
     private struct Storyboard {
         static let CollectionViewReusableCellIdentifier = "ImageCell"
+        static let SegueIdentifier = "Show Tweet"
+    }
+    
+    private struct Gestures {
+        static let PinchAction: Selector = "scale:"
+    }
+    
+    private var scale: CGFloat = 1 {
+        didSet{
+            collectionView?.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
+    private struct Constants {
+        static let LayoutSectionInset = 0
+        static let LayoutMinimumLineSpacing: CGFloat = 1
+        static let LayoutMinimumInteritemSpacing: CGFloat = 1
+        static let LayoutNumberOfCellPerRow: CGFloat = 3
+    }
+    
+    func scale(gesture: UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .Changed:
+            scale *= gesture.scale
+            gesture.scale = 1
+        default: break
+        }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView?.reloadData()
+    }
+    
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        let collectionViewWidth = self.collectionView!.frame.size.width
+        let width = floor(self.collectionView!.frame.size.width/(Constants.LayoutNumberOfCellPerRow * scale)) - Constants.LayoutMinimumLineSpacing
+        
+        if width > collectionViewWidth {
+            scale = 1 / Constants.LayoutNumberOfCellPerRow
+            return CGSize(width: collectionViewWidth, height: collectionViewWidth)
+        } else {
+            return CGSize(width: width, height: width)
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return Constants.LayoutMinimumLineSpacing
+    }
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return Constants.LayoutMinimumInteritemSpacing
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Do any additional setup after loading the view.
-    }
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        
+        if let identifer = segue.identifier {
+            switch identifer {
+            case Storyboard.SegueIdentifier:
+            if let tvc = segue.destinationViewController as? TweetTableViewController {
+                if let cell = sender as? ImageCollectionViewCell {
+                    if let indexPath = collectionView?.indexPathForCell(cell) {
+                        tvc.tweetToShow = tweetsWithImages[indexPath.section][indexPath.row]
+                        tvc.title = title
+                    }
+                }
+                }
+            default: break
+            }
+        }
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -84,37 +146,6 @@ class TweetCollectionViewController: UICollectionViewController, ImageCollection
         
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
 
     //MARK: - ImageCollectionViewDelegate
     func didFinishDownloadingImage(image: UIImage, sender: ImageCollectionViewCell) {

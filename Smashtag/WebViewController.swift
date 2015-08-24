@@ -29,6 +29,19 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadUrl()
+        
+        let unwindToRootButton =  UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "unwind")
+        navigationItem.rightBarButtonItem = unwindToRootButton
+        
+        
+    }
+    
+    private struct Storyboard {
+        static let UnwindSegueIdentifier = "Unwind To Main Menu"
+    }
+    
+    func unwind() {
+        performSegueWithIdentifier(Storyboard.UnwindSegueIdentifier, sender: self)
     }
     
     private func loadUrl() {

@@ -53,6 +53,9 @@ class ScrollViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.addSubview(imageView)
+        
+        let unwindToRootButton =  UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "unwind")
+        navigationItem.rightBarButtonItem = unwindToRootButton
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -60,6 +63,14 @@ class ScrollViewController: UIViewController, UIScrollViewDelegate {
         if image == nil {
             loadImage()
         }
+    }
+    
+    private struct Storyboard {
+        static let UnwindSegueIdentifier = "Unwind To Main Menu"
+    }
+    
+    func unwind() {
+        performSegueWithIdentifier(Storyboard.UnwindSegueIdentifier, sender: self)
     }
     
     //Load the image and display it in the scroll view
