@@ -176,6 +176,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 return true
             }
         }
+        
+        if let sender = sender as? UITableViewCell {
+            return true
+        }
         return false
     }
 }

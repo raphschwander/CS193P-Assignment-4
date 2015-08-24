@@ -34,8 +34,13 @@ class RecentSearchTableViewController: UITableViewController {
         static let TableViewReusableCellIdentifier = "RecentSearch"
         static let SegueIdentifier = "Show Tweets"
     }
+    
+    //Set the unwind action
+    @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+    }
 
 
+    //MARK: - UITableViewDelegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
