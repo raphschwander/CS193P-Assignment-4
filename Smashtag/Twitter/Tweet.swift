@@ -150,6 +150,7 @@ private extension String {
     var asTwitterDate: NSDate? {
         get {
             let dateFormatter = NSDateFormatter()
+            dateFormatter.locale = NSLocale(localeIdentifier: "en_US")
             dateFormatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
             return dateFormatter.dateFromString(self)
         }

@@ -64,7 +64,7 @@
                             <rect key="frame" x="0.0" y="-30" width="600" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="twitter"/>
+                            <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
                         </textField>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet" rowHeight="166" id="Xld-z7-Z3Q" customClass="TweetTableViewCell" customModule="Smashtag" customModuleProvider="target">
@@ -483,6 +483,6 @@
         <image name="Collection" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uJU-ch-MyK"/>
+        <segue reference="pIs-8D-Mzx"/>
     </inferredMetricsTieBreakers>
 </document>
