@@ -8,11 +8,29 @@
 
 import UIKit
 
-let reuseIdentifier = "Cell"
 
-class TweetCollectionViewController: UICollectionViewController {
+class TweetCollectionViewController: UICollectionViewController, ImageCollectionViewDelegate {
     
-    var tweets: [[Tweet]] = [[]]
+    var tweets: [[Tweet]] = [[]] {
+        didSet {
+            // filter the array, to keep only the Tweets that contain image url
+            for tweetArray in tweets {
+                
+                let filteredArray = tweetArray.filter() {
+                    if $0.media.first?.url != nil {
+                        return true
+                    } else {
+                        return false }
+                }
+                tweetsWithImages += [filteredArray]
+            }
+        }
+    }
+    
+
+    private let cache = NSCache()
+    
+    private var tweetsWithImages: [[Tweet]] = [[]]
     
     private struct Storyboard {
         static let CollectionViewReusableCellIdentifier = "ImageCell"
@@ -25,11 +43,6 @@ class TweetCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     /*
@@ -46,21 +59,29 @@ class TweetCollectionViewController: UICollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         //#warning Incomplete method implementation -- Return the number of sections
-        return tweets.count
+        return tweetsWithImages.count
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
-        return tweets[section].count
+        return tweetsWithImages[section].count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.CollectionViewReusableCellIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
-    
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.CollectionViewReusableCellIdentifier, forIndexPath: indexPath) as! ImageCollectionViewCell
         
-    
+        cell.delegate = self
+        
+        let tweet = tweetsWithImages[indexPath.section][indexPath.row]
+        let url = tweet.media.first!.url
+        
+        if let image = restoreImage(urlOfImage: url) {
+            cell.tweetImage.image = image
+        } else {
+            cell.imageUrl = url
+        }
+        
         return cell
     }
 
@@ -94,5 +115,29 @@ class TweetCollectionViewController: UICollectionViewController {
     
     }
     */
+
+    //MARK: - ImageCollectionViewDelegate
+    func didFinishDownloadingImage(image: UIImage, sender: ImageCollectionViewCell) {
+        storeImage(urlOfImage: sender.imageUrl!, image: image)
+    }
+    
+    //MARK: - NSCache
+    
+    private func storeImage(urlOfImage url: NSURL ,image: UIImage) {
+        if restoreImage(urlOfImage: url) == nil {
+            cache.setObject(image, forKey: "\(url)", cost: UIImageJPEGRepresentation(image, 1).length)
+        }
+    }
+    
+    private func restoreImage(urlOfImage url: NSURL) -> UIImage? {
+        if let image = cache.objectForKey("\(url)") as? UIImage {
+            return image
+        }
+        else {
+            return nil
+        }
+    }
+    
+    
 
 }

@@ -51,6 +51,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     private struct Storyboard {
         static let TableViewReusableCellIdentifier = "Tweet"
         static let SegueIdentifier = "Show Mentions"
+        static let CollectionSegueIdentifier = "Show Images"
     }
     
     //MARK: - Lifecycle
@@ -187,17 +188,22 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if let tmvc = segue.destinationViewController as? TweetMentionsTableViewController {
             if let identifier = segue.identifier {
                 switch identifier {
                 case Storyboard.SegueIdentifier:
-                    let cell = sender as! TweetTableViewCell
-                    if let indexPath = tableView.indexPathForCell(cell) {
-                        tmvc.tweet = self.tweets[indexPath.section][indexPath.row]
+                    if let tmvc = segue.destinationViewController as? TweetMentionsTableViewController {
+                        let cell = sender as! TweetTableViewCell
+                        if let indexPath = tableView.indexPathForCell(cell) {
+                            tmvc.tweet = self.tweets[indexPath.section][indexPath.row]
+                        }
                     }
+                case Storyboard.CollectionSegueIdentifier:
+                    if let tcvc = segue.destinationViewController as? TweetCollectionViewController {
+                        tcvc.tweets = tweets
+                    }
+                    
                 default: break
                 }
             }
-        }
     }
 }
