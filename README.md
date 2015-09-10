@@ -1,9 +1,9 @@
 # Smashtag
 ### Assignment 4 of Stanford CS193P (Winter 2015)
-###### Concepts
+###### Concepts:
 *NSAttributedString | UITableView | UITableViewController | UITableViewCell | UIRefreshControl 
 UICollectionView | UICollectionViewController | UIWebView | UIImageView | Data structure design 
-UIActivityIndicatorView | UITabBarController | Multithreading | NSUserDefaults | UIScrollView *
+UIActivityIndicatorView | UITabBarController | Multithreading | NSUserDefaults | UIScrollView*
 
 
 Twitter Search  | Images
