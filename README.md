@@ -2,7 +2,7 @@
 ### Assignment 4 of Stanford CS193P (Winter 2015)
 
 
-Twitter Search  | 
+Twitter Search  | Tweets
 ------------ | -------------
 ![Image of Search Tab](https://cloud.githubusercontent.com/assets/11804885/9792481/927eed50-57e0-11e5-862a-526ba2155fdf.png) | ![Image of CollectionView] (https://cloud.githubusercontent.com/assets/11804885/9792480/927e8e00-57e0-11e5-9a3c-6472c8a61798.png)
 
