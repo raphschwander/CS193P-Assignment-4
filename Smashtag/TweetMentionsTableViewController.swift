@@ -36,8 +36,8 @@ class TweetMentionsTableViewController: UITableViewController {
                 var userArray = Mentions(title: Constants.UserMentionTitle, data: [MentionItem.Keyword("@\(userScreenName)")])
                 if let userMention = tweet?.userMentions {
                     if userMention.count > 0 {
-                        var userMentionArray = userMention.map {(MentionItem.Keyword($0.keyword))}
-                        userArray.data.extend(userMentionArray)
+                        let userMentionArray = userMention.map {(MentionItem.Keyword($0.keyword))}
+                        userArray.data.appendContentsOf(userMentionArray)
                     }
                 }
                 mentions.append(userArray)
@@ -107,7 +107,7 @@ class TweetMentionsTableViewController: UITableViewController {
             return cell
         
         case .Keyword(let keyword):
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TableViewReusableTextCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TableViewReusableTextCellIdentifier, forIndexPath: indexPath) 
             cell.textLabel?.text = "\(keyword)"
             return cell
         }
@@ -171,7 +171,7 @@ class TweetMentionsTableViewController: UITableViewController {
                         // Extra Task 2 : Set the search text as to search not only for the Tweets that mention that user, but also for the tweets posted by that user
                         if mentionTitle == Constants.UserMentionTitle {
                             if let cellText = cell.textLabel?.text {
-                                tvc.searchText = "\(cellText) OR from : \(cellText.substringFromIndex(advance(cellText.startIndex, 1)))"
+                                tvc.searchText = "\(cellText) OR from : \(cellText.substringFromIndex(cellText.startIndex.advancedBy(1)))"
                             }
                         } else {
                             // set the new search text

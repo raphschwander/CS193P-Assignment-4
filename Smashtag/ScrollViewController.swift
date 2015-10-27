@@ -76,7 +76,7 @@ class ScrollViewController: UIViewController, UIScrollViewDelegate {
     //Load the image and display it in the scroll view
     private func loadImage() {
         if let url = imageUrl {
-            let qos = Int(QOS_CLASS_USER_INTERACTIVE.value)
+            let qos = Int(QOS_CLASS_USER_INTERACTIVE.rawValue)
             // Fetch the data off the main queue
             dispatch_async(dispatch_get_global_queue(qos, 0)) {
                 if let fetchedData = NSData(contentsOfURL: url) {

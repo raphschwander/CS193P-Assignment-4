@@ -37,7 +37,7 @@ class TweetTableViewCell: UITableViewCell {
             setAndFormatBodyText(tweet)
             
             if let url = tweet.user.profileImageURL {
-                let qos = Int(QOS_CLASS_UTILITY.value)
+                let qos = Int(QOS_CLASS_UTILITY.rawValue)
                 
                 // Fetch the data off the main queue
                 dispatch_async(dispatch_get_global_queue(qos,0)) {
@@ -76,7 +76,7 @@ class TweetTableViewCell: UITableViewCell {
             text += " 📷"
         }
         
-        var attributedString = NSMutableAttributedString(string: text)
+        let attributedString = NSMutableAttributedString(string: text)
         
         if !tweet.hashtags.isEmpty {
             for hashtag in tweet.hashtags {

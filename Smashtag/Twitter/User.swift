@@ -10,7 +10,7 @@ import Foundation
 
 // container to hold data about a Twitter user
 
-public struct User: Printable
+public struct User: CustomStringConvertible
 {
     public var screenName: String
     public var name: String
@@ -18,7 +18,7 @@ public struct User: Printable
     public var verified: Bool = false
     public var id: String!
     
-    public var description: String { var v = verified ? " ✅" : ""; return "@\(screenName) (\(name))\(v)" }
+    public var description: String { let v = verified ? " ✅" : ""; return "@\(screenName) (\(name))\(v)" }
 
     // MARK: - Private Implementation
 

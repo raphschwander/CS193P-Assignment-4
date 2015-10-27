@@ -14,7 +14,7 @@ import Foundation
 // note carefully the comments on the two range properties in an IndexedKeyword
 // Tweet instances re created by fetching from Twitter using a TwitterRequest
 
-public class Tweet : Printable
+public class Tweet : CustomStringConvertible
 {
     public var text: String
     public var user: User
@@ -25,7 +25,7 @@ public class Tweet : Printable
     public var urls = [IndexedKeyword]()
     public var userMentions = [IndexedKeyword]()
 
-    public struct IndexedKeyword: Printable
+    public struct IndexedKeyword: CustomStringConvertible
     {
         public var keyword: String              // will include # or @ or http:// prefix
         public var range: Range<String.Index>   // index into the Tweet's text property only
@@ -35,15 +35,15 @@ public class Tweet : Printable
             let indices = data?.valueForKeyPath(TwitterKey.Entities.Indices) as? NSArray
             if let startIndex = (indices?.firstObject as? NSNumber)?.integerValue {
                 if let endIndex = (indices?.lastObject as? NSNumber)?.integerValue {
-                    let length = count(inText)
+                    let length = inText.characters.count
                     if length > 0 {
                         let start = max(min(startIndex, length-1), 0)
                         let end = max(min(endIndex, length), 0)
                         if end > start {
-                            range = advance(inText.startIndex, start)...advance(inText.startIndex, end-1)
+                            range = inText.startIndex.advancedBy(start)...inText.startIndex.advancedBy(end-1)
                             keyword = inText.substringWithRange(range)
                             if prefix != nil && !keyword.hasPrefix(prefix!) && start > 0 {
-                                range = advance(inText.startIndex, start-1)...advance(inText.startIndex, end-2)
+                                range = inText.startIndex.advancedBy(start-1)...inText.startIndex.advancedBy(end-2)
                                 keyword = inText.substringWithRange(range)
                             }
                             if prefix == nil || keyword.hasPrefix(prefix!) {
@@ -134,7 +134,7 @@ private extension NSString {
         var end = max(min(nearRange.location + nearRange.length, length), 0)
         var done = false
         while !done {
-            let range = rangeOfString(substring as String, options: NSStringCompareOptions.allZeros, range: NSMakeRange(start, end-start))
+            let range = rangeOfString(substring as String, options: NSStringCompareOptions(), range: NSMakeRange(start, end-start))
             if range.location != NSNotFound {
                 return range
             }

@@ -27,7 +27,7 @@ class ImageTableViewCell: UITableViewCell {
         if let imageUrl = imageUrl {
             
             activityIndcator.startAnimating()
-            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
             
             //fetch the data off the main queue
             dispatch_async(dispatch_get_global_queue(qos, 0)) {

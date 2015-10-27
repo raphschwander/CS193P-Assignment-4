@@ -156,7 +156,7 @@ class TweetCollectionViewController: UICollectionViewController, UICollectionVie
     
     private func storeImage(urlOfImage url: NSURL ,image: UIImage) {
         if restoreImage(urlOfImage: url) == nil {
-            cache.setObject(image, forKey: "\(url)", cost: UIImageJPEGRepresentation(image, 1).length)
+            cache.setObject(image, forKey: "\(url)", cost: UIImageJPEGRepresentation(image, 1)!.length)
         }
     }
     
